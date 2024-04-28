@@ -9,14 +9,13 @@ import db from './config/db.ts';
 dotenv.config();
 app.use(cors());
 
-app.get('/agaps', (req: Request, res: Response) => {
+app.get('/', (req: Request, res: Response) => {
     const query = `SELECT * FROM agapsTable`;
     db.query(query, (err: any, data: any) => {
         if (err) {
             return res.json(err);
         } else {
-            res.json(data);
-            console.log(data);
+            return res.json(data);
         }
     })
 
