@@ -3,19 +3,11 @@ import { Request, Response } from 'express';
 const app = express();
 const dotenv = require('dotenv');
 const cors = require('cors');
-const mysql = require('mysql');
-const port = 3000 || process.env.PORT
+const port = 3000;
+import db from './config/db.ts';
 
-app.use(cors());
 dotenv.config();
-
-
-const db = mysql.createConnection({
-    host: process.env.host,
-    user: process.env.user,
-    password: process.env.password,
-    database: process.env.database
-});
+app.use(cors());
 
 app.get('/agaps', (req: Request, res: Response) => {
     const query = `SELECT * FROM agapsTable`;
@@ -24,6 +16,7 @@ app.get('/agaps', (req: Request, res: Response) => {
             return res.json(err);
         } else {
             res.json(data);
+            console.log(data);
         }
     })
 
