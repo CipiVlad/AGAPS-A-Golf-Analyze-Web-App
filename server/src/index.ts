@@ -4,6 +4,7 @@ const app = express();
 const dotenv = require('dotenv');
 const cors = require('cors');
 const mysql = require('mysql');
+const port = 3000 || process.env.PORT
 
 app.use(cors());
 dotenv.config();
@@ -31,5 +32,5 @@ app.get('/agaps', (req: Request, res: Response) => {
 
 
 app.listen(3000, () => {
-    console.log('The application is listening on port 3000!');
+    console.log(`The application is listening on ${port}!`);
 })
