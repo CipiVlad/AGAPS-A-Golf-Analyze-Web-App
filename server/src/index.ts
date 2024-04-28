@@ -16,13 +16,6 @@ const db = mysql.createConnection({
     database: process.env.database
 });
 
-console.log(process.env.host);
-
-
-app.get('/', (req: Request, res: Response) => {
-    res.send('Well done!');
-})
-
 app.get('/agaps', (req: Request, res: Response) => {
     const query = `SELECT * FROM agapsTable`;
     db.query(query, (err: any, data: any) => {
