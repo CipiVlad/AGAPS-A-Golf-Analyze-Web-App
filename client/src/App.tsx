@@ -8,7 +8,7 @@ function App() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await axios.get('http://localhost:3000/agaps')
+      const response = await axios.get('http://localhost:3000')
       setGetData(response.data)
       console.log(response.data)
     }
