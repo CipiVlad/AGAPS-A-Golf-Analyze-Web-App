@@ -1,5 +1,11 @@
 # AGAPS-A-Golf-Analyze-Web-App
 
+<!-- dev mode -->
+npm run dev
+
+<!-- compile ts to use on render.com -->
+npm run build
+
 ## Overview
 
 ### Usage / Idea
@@ -14,9 +20,11 @@
 - OS: Arch - Linux (ArcoLinux)
 - Bulilt with Typescript (server and client)
 - Tech - Stack: 
-    -- Serversite: nodejs, express, mysql
+    -- IDE: vscode, Thunderclient / Postman
+    -- Serversite: nodejs, express, mysql, workbench mysql
     -- Clientsite: vite, react, axios
     -- Hosting/Web Service: render.com
+    -- Mobile First
 
 - Project Management Tools:
     -- figma
