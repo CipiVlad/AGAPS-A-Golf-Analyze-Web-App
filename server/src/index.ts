@@ -106,6 +106,20 @@ app.post('/course-info', (req: Request, res: Response) => {
 //delete agaps
 
 
+//concat tables
+app.get('/concat-tables', (req: Request, res: Response) => {
+    //concat tables courseInfo and agapsTable on id where courseInfo.id = agapsTable.id
+    const query = `SELECT agapsTable.*, courseInfo.* FROM courseInfo INNER JOIN agapsTable ON courseInfo.id = courseInfo.id`;
+    db.query(query, (err: any, data: any) => {
+        if (err) {
+            return res.json(err);
+        } else {
+            console.log(data);
+            return res.json(data);
+        }
+    })
+})
+
 
 
 app.listen(3000, () => {
