@@ -35,9 +35,10 @@ const AddCourseInfo = () => {
         }
 
         try {
-            const response = await axios.post("http://localhost:3000/course-info", newPostObj)
-            console.log(response)
-            navigate("/overview")
+            // const response = await axios.post("http://localhost:3000/course-info", newPostObj)
+            // console.log(response)
+
+            navigate("/hole-card/1")
         } catch (error) {
             console.log(error)
         }

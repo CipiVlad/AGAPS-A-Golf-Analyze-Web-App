@@ -3,7 +3,8 @@ import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 
 const HoleDetail = () => {
-    // here you fetch the hole detail by the course id
+    // here you fetch the hole detail overview
+    // by the course id matching the roundId (courseInfo server)
     const { id } = useParams()
     const [getDetails, setGetDetails] = useState([])
     useEffect(() => {
@@ -16,15 +17,16 @@ const HoleDetail = () => {
         fetchData()
     }, [])
 
-    console.log(getDetails);
+    // console.log(getDetails);
 
     return (
         <>
-            <h2>Hole Details</h2>
+            <h2>Overview - Hole Details</h2>
             {
                 getDetails.map((data: any, index: number) => {
                     return (
                         <div key={index}>
+                            <h3>Date {data.formattedTimestamp.slice(0, 10)}</h3>
                             <h4>Hole: {data.hole}</h4>
                             <p>Par: {data.par}</p>
                             <p>Score: {data.score}</p>
