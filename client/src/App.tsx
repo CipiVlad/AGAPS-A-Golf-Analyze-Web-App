@@ -4,7 +4,7 @@ import './App.css'
 import { Overview } from './pages/app/Overview'
 import HoleDetail from './pages/app/InGame/HoleDetail'
 import Navbar from './components/Navbar'
-import AddRound from './pages/app/AddRound'
+import AddCourseInfo from './pages/app/AddCourseInfo'
 
 function App() {
 
@@ -14,7 +14,7 @@ function App() {
       <Link to="/overview">Overview</Link>
       <Routes>
         <Route path="/overview" element={<Overview />} />
-        <Route path="/add-round" element={<AddRound />} />
+        <Route path="/add-round" element={<AddCourseInfo />} />
         <Route path="/details/:id" element={<HoleDetail />} />
       </Routes>
       <Navbar />

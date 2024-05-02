@@ -3,7 +3,7 @@ import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 
 
-const AddRound = () => {
+const AddCourseInfo = () => {
     const navigate = useNavigate()
     const [course, setCourse] = useState<string>("")
     const [round, setRound] = useState<string>("")
@@ -71,4 +71,4 @@ const AddRound = () => {
     )
 
 }
-export default AddRound
+export default AddCourseInfo
