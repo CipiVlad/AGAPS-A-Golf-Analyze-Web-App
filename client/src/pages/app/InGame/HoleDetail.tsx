@@ -10,6 +10,8 @@ const HoleDetail = () => {
         const fetchData = async () => {
             const response = await axios.get(`http://localhost:3000/concat-tables/${id}`)
             setGetDetails(response.data)
+            console.log(response.data);
+
         }
         fetchData()
     }, [])

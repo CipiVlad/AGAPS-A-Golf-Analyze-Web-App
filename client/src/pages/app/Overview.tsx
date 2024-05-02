@@ -30,7 +30,9 @@ export const Overview = () => {
                 showData && getData.map((data: any, index: number) => {
                     return (
                         <div key={index}>
-                            <Link to={`/details/${data.id}`}>Course: {data.course}</Link>
+                            <Link to={`/details/${data.id}`}>Course:{data.course}</Link>
+                            <p>Round: {data.round}</p>
+                            <p>Date: {data.formattedTimestamp}</p>
                         </div>
                     )
                 })
