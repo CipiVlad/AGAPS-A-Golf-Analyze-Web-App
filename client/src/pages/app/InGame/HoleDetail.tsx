@@ -3,12 +3,12 @@ import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 
 const HoleDetail = () => {
-    // here you fetch the hole detail by the hole id
+    // here you fetch the hole detail by the course id
     const { id } = useParams()
     const [getDetails, setGetDetails] = useState([])
     useEffect(() => {
         const fetchData = async () => {
-            const response = await axios.get(`http://localhost:3000/agaps/${id}`)
+            const response = await axios.get(`http://localhost:3000/concat-tables/${id}`)
             setGetDetails(response.data)
         }
         fetchData()
@@ -20,9 +20,9 @@ const HoleDetail = () => {
         <>
             <h2>Hole Details</h2>
             {
-                getDetails.map((data: any) => {
+                getDetails.map((data: any, index: number) => {
                     return (
-                        <div key={data.id}>
+                        <div key={index}>
                             <h4>Hole: {data.hole}</h4>
                             <p>Par: {data.par}</p>
                             <p>Score: {data.score}</p>

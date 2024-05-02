@@ -10,8 +10,10 @@ export const Overview = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const response = await axios.get('http://localhost:3000/agaps')
+            // const response = await axios.get('http://localhost:3000/concat-tables')
+            const response = await axios.get('http://localhost:3000/course-info')
             setGetData(response.data)
+            console.log(response.data);
         }
         fetchData()
     }, [])
@@ -20,13 +22,15 @@ export const Overview = () => {
     return (
         <div>
             <h2>Overview</h2>
+            {/* show the data of the table concat-tables  */}
+            <h3>last rounds</h3>
 
             <button onClick={() => setShowData(!showData)}>{showData ? 'Hide' : 'Show'}</button>
             {
-                showData && getData.map((data: any) => {
+                showData && getData.map((data: any, index: number) => {
                     return (
-                        <div key={data.id}>
-                            <Link to={`/details/${data.id}`}>Hole {data.hole}</Link>
+                        <div key={index}>
+                            <Link to={`/details/${data.id}`}>Course: {data.course}</Link>
                         </div>
                     )
                 })

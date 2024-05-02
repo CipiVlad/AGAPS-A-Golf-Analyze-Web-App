@@ -86,10 +86,15 @@ app.post('/agaps', (req: Request, res: Response) => {
 
 //add courseInfo to table
 app.post('/course-info', (req: Request, res: Response) => {
-    const { course, round } = req.body;
-    const query = `INSERT INTO courseInfo (course,round) VALUES (?, ?)`;
+    const timestamp = Date.now();
+    const formattedTimestamp = new Date(timestamp).toISOString().replace('T', ' ').split('.')[0];
 
-    db.query(query, [course, round], (err: any, data: any) => {
+    const { course, round } = req.body;
+    //add timestamp here
+
+    const query = `INSERT INTO courseInfo (course, round, formattedTimestamp) VALUES (?, ?, ?)`
+
+    db.query(query, [course, round, formattedTimestamp], (err: any, data: any) => {
         if (err) {
             return res.json(err);
         } else {
@@ -114,7 +119,21 @@ app.get('/concat-tables', (req: Request, res: Response) => {
         if (err) {
             return res.json(err);
         } else {
-            console.log(data);
+            // console.log(data);
+            return res.json(data);
+        }
+    })
+})
+
+// concat tables details by id
+app.get('/concat-tables/:id', (req: Request, res: Response) => {
+    const { id } = req.params;
+    const query = `SELECT agapsTable.*, courseInfo.* FROM courseInfo INNER JOIN agapsTable ON courseInfo.id = courseInfo.id WHERE courseInfo.id = ?`;
+    db.query(query, [id], (err: any, data: any) => {
+        if (err) {
+            return res.json(err);
+        } else {
+            // console.log(data);
             return res.json(data);
         }
     })
