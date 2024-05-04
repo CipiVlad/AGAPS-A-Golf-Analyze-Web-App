@@ -14,10 +14,16 @@ const HoleCard = () => {
                         <div key={index}>
                             <h2>Course GCK</h2>
                             <h3>Hole {hole.hole} (Par {hole.par})</h3>
-                            <InputFields />
+                            <InputFields
+                                hole={hole.hole}
+                                par={hole.par}
+                            />
                             <Link to={`/hole-card/${hole.hole + 1}`}>Next</Link>
-                            |
-                            <Link to={`/hole-card/${hole.hole - 1}`}>Previous</Link>
+                            {
+                                hole.hole === 1
+                                    ? null
+                                    : <Link to={`/hole-card/${hole.hole - 1}`}>Previous</Link>
+                            }
                         </div>
                     )
 

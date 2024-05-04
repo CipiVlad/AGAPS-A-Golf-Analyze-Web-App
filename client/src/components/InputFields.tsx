@@ -4,7 +4,7 @@ import axios from "axios"
 
 
 
-const InputFields = () => {
+const InputFields = ({ hole, par }: { hole: number, par: number }) => {
     const [roundId, setRoundId] = useState<number>(9)
     const [score, setScore] = useState<number>()
     const [fairway, setFairway] = useState<string>()
@@ -13,23 +13,25 @@ const InputFields = () => {
     const [penalty, setPenalty] = useState<number>()
     const [putts, setPutts] = useState<number>()
 
+    const handleSubmit = async (e: any) => {
+        e.preventDefault()
 
+        const newPostObj = {
+            hole: hole,
+            par: par,
+            roundId: roundId,
+            score: score,
+            fairway: fairway,
+            green: green,
+            approach: approach,
+            penalty: penalty,
+            putts: putts
+        }
 
-    // const handleSubmit = async (e: any) => {
-    //     e.preventDefault()
-    //     const newPostObj: gckInput = {
-    //         roundId: roundId,
-    //         score: score,
-    //         fairway: fairway,
-    //         green: green,
-    //         approach: approach,
-    //         penalty: penalty,
-    //         putts: putts
-    //     }
-    //     console.log(newPostObj)
-    //     const response = await axios.post('http://localhost:3000/agaps', newPostObj)
-    //     console.log(response.data)
-    // }
+        console.log(newPostObj)
+        const response = await axios.post('http://localhost:3000/agaps', newPostObj)
+        console.log(response.data)
+    }
 
 
 
@@ -43,7 +45,7 @@ const InputFields = () => {
 
     return (
         <form
-            // onSubmit={handleSubmit}
+            onSubmit={handleSubmit}
             method="post" style={style}>
 
             <label htmlFor="RoundId" style={styleDisplayHidden}>RoundId</label>
