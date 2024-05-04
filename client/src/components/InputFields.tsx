@@ -1,7 +1,6 @@
 import { useState } from "react"
 import { gckInput } from "../models/gck_holes_api"
-
-type InputFieldsProps = gckInput
+import axios from "axios"
 
 
 
@@ -14,11 +13,41 @@ const InputFields = () => {
     const [penalty, setPenalty] = useState<number>()
     const [putts, setPutts] = useState<number>()
 
-    return (
-        <form action="" method="post" style={{ display: 'grid', gap: '10px', gridTemplateColumns: '1fr 1fr', alignItems: 'center', justifyContent: 'center' }}>
 
-            <label htmlFor="RoundId">RoundId</label>
-            <input type="text" name="roundId" value={roundId} onChange={(e) => setRoundId(Number(e.target.value))} />
+
+    // const handleSubmit = async (e: any) => {
+    //     e.preventDefault()
+    //     const newPostObj: gckInput = {
+    //         roundId: roundId,
+    //         score: score,
+    //         fairway: fairway,
+    //         green: green,
+    //         approach: approach,
+    //         penalty: penalty,
+    //         putts: putts
+    //     }
+    //     console.log(newPostObj)
+    //     const response = await axios.post('http://localhost:3000/agaps', newPostObj)
+    //     console.log(response.data)
+    // }
+
+
+
+
+    const style = {
+        display: 'grid', gap: '10px', gridTemplateColumns: '1fr 1fr', alignItems: 'center', justifyContent: 'center'
+    }
+    const styleDisplayHidden = {
+        display: 'none'
+    }
+
+    return (
+        <form
+            // onSubmit={handleSubmit}
+            method="post" style={style}>
+
+            <label htmlFor="RoundId" style={styleDisplayHidden}>RoundId</label>
+            <input style={styleDisplayHidden} type="text" name="roundId" value={roundId} onChange={(e) => setRoundId(Number(e.target.value))} />
 
             <label htmlFor="Score">Score</label>
             <input type="text" name="score" value={score} onChange={(e) => setScore(Number(e.target.value))} />
@@ -38,8 +67,11 @@ const InputFields = () => {
             <label htmlFor="Putts">Putts</label>
             <input type="text" name="putts" value={putts} onChange={(e) => setPutts(Number(e.target.value))} />
 
-            <label htmlFor="Submit">Submit</label>
+            <label htmlFor="Submit">Next Hole</label>
             <input type="submit" value="Submit" style={{ width: '100px' }} />
+
+
+
         </form>
     )
 }
