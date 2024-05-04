@@ -1,10 +1,14 @@
 import { Link, useLocation } from "react-router-dom"
 import { gckHoles, gckAPI } from "../models/gck_holes_api"
 import InputFields from "./InputFields"
+import LegendExplaination from "./LegendExplaination"
+import { useState } from "react"
+import { IoChevronBack } from "react-icons/io5";
 
 
 const HoleCard = () => {
     const { pathname } = useLocation()
+    const [show, setShow] = useState(false)
     return (
         <>
             {gckHoles.map((hole: gckAPI, index: number) => {
@@ -17,18 +21,25 @@ const HoleCard = () => {
                             <InputFields
                                 hole={hole.hole}
                                 par={hole.par}
+                                link={`/hole-card/${hole.hole + 1}`}
                             />
-                            <Link to={`/hole-card/${hole.hole + 1}`}>Next</Link>
+                            {/* <Link to={`/hole-card/${hole.hole + 1}`}>Next</Link> */}
                             {
                                 hole.hole === 1
                                     ? null
-                                    : <Link to={`/hole-card/${hole.hole - 1}`}>Previous</Link>
+                                    : <Link to={`/hole-card/${hole.hole - 1}`}>
+                                        <IoChevronBack style={{ fontSize: 40 }} />
+                                    </Link>
                             }
                         </div>
                     )
 
                 )
             })}
+            <button onClick={() => setShow(!show)}>Show Legend</button>
+            {
+                show ? <LegendExplaination /> : null
+            }
         </>
     )
 }

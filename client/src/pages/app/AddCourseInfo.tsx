@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom"
 
 
 const AddCourseInfo = () => {
+
+
     const navigate = useNavigate()
     const [course, setCourse] = useState<string>("")
     const [round, setRound] = useState<string>("")
@@ -26,17 +28,20 @@ const AddCourseInfo = () => {
         setRound(e.target.value)
     }
 
+
+
     const handleSubmit = async (e: any) => {
         e.preventDefault()
 
         const newPostObj = {
+
             course: course,
             round: round
         }
 
         try {
-            // const response = await axios.post("http://localhost:3000/course-info", newPostObj)
-            // console.log(response)
+            const response = await axios.post("http://localhost:3000/course-info", newPostObj)
+            console.log(response)
 
             navigate("/hole-card/1")
         } catch (error) {
@@ -45,11 +50,13 @@ const AddCourseInfo = () => {
     }
 
 
+
+
     return (
         <div>
             <h2>Add Round</h2>
 
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "10px", alignItems: "center" }}>
                 <label htmlFor="course">Course:</label>
                 <select name="course" id="course" onChange={handleChangeCourse}>
                     {optionCourse.map((option) => (

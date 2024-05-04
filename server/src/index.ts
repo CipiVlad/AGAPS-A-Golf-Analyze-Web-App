@@ -75,6 +75,20 @@ app.get('/course-info', (req: Request, res: Response) => {
     })
 })
 
+// delete courseInfo and agapsTable by id
+app.delete('/course-info/:id', (req: Request, res: Response) => {
+    const { id } = req.params;
+    const query = `DELETE FROM courseInfo WHERE id = ?`;
+    db.query(query, [id], (err: any, data: any) => {
+        if (err) {
+            return res.json(err);
+        } else {
+            console.log(data);
+            return res.json(data);
+        }
+    })
+})
+
 
 // listener
 

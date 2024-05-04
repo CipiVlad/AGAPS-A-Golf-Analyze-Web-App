@@ -6,13 +6,14 @@ import HoleDetail from './pages/app/HoleDetail'
 import Navbar from './components/Navbar'
 import AddCourseInfo from './pages/app/AddCourseInfo'
 import HoleCard from './components/HoleCardStart'
+import NavbarTop from './components/NavbarTop'
 
 function App() {
 
 
   return (
     <div className="App">
-      <Link to="/overview">Overview</Link>
+      <NavbarTop />
       <Routes>
         <Route path="/overview" element={<Overview />} />
         <Route path="/details/:id" element={<HoleDetail />} />

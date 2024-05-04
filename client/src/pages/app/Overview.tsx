@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
+import { MdDeleteForever } from "react-icons/md";
 
 
 export const Overview = () => {
@@ -10,13 +11,20 @@ export const Overview = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            // const response = await axios.get('http://localhost:3000/concat-tables')
             const response = await axios.get('http://localhost:3000/course-info')
             setGetData(response.data)
             console.log(response.data);
         }
         fetchData()
     }, [])
+
+    // delete by id
+    const deleteById = async (id: number) => {
+        const response = await axios.delete(`http://localhost:3000/course-info/${id}`)
+        setGetDataById(response.data)
+        console.log(response.data);
+    }
+
 
 
     return (
@@ -33,10 +41,12 @@ export const Overview = () => {
                             <Link to={`/details/${data.id}`}>Course:{data.course}</Link>
                             <p>Round: {data.round}</p>
                             <p>Date: {data.formattedTimestamp}</p>
+                            <button onClick={() => deleteById(data.id)}><MdDeleteForever /></button>
                         </div>
                     )
                 })
             }
+            {/* delete */}
         </div>
     )
 }

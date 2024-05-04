@@ -1,17 +1,35 @@
-import { useState } from "react"
-import { gckInput } from "../models/gck_holes_api"
+import { useEffect, useState } from "react"
 import axios from "axios"
+import { useNavigate } from "react-router-dom"
+import './InputFields.css'
+import { MdNavigateNext } from "react-icons/md";
 
-
-
-const InputFields = ({ hole, par }: { hole: number, par: number }) => {
-    const [roundId, setRoundId] = useState<number>(9)
+const InputFields = ({ hole, par, link }: { hole: number, par: number, link: string }) => {
+    const navigate = useNavigate()
+    const [roundId, setRoundId] = useState<number>()
     const [score, setScore] = useState<number>()
     const [fairway, setFairway] = useState<string>()
     const [green, setGreen] = useState<string>()
     const [approach, setApproach] = useState<string>()
     const [penalty, setPenalty] = useState<number>()
     const [putts, setPutts] = useState<number>()
+
+    useEffect(() => {
+
+        const fetchData = async () => {
+            const response = await axios.get(`http://localhost:3000/course-info`)
+
+            response.data !== undefined && setRoundId(response.data[0].id)
+        }
+        fetchData()
+    }, [])
+
+    console.log(roundId);
+
+
+
+
+
 
     const handleSubmit = async (e: any) => {
         e.preventDefault()
@@ -30,6 +48,7 @@ const InputFields = ({ hole, par }: { hole: number, par: number }) => {
 
         console.log(newPostObj)
         const response = await axios.post('http://localhost:3000/agaps', newPostObj)
+        navigate(link)
         console.log(response.data)
     }
 
@@ -57,7 +76,7 @@ const InputFields = ({ hole, par }: { hole: number, par: number }) => {
             <label htmlFor="Fairway">Fairway</label>
             <input type="text" name="fairway" value={fairway} onChange={(e) => setFairway(e.target.value)} />
 
-            <label htmlFor="Green">Green</label>
+            <label htmlFor="Green">GIR</label>
             <input type="text" name="green" value={green} onChange={(e) => setGreen(e.target.value)} />
 
             <label htmlFor="Approach">Approach</label>
@@ -70,8 +89,8 @@ const InputFields = ({ hole, par }: { hole: number, par: number }) => {
             <input type="text" name="putts" value={putts} onChange={(e) => setPutts(Number(e.target.value))} />
 
             <label htmlFor="Submit">Next Hole</label>
-            <input type="submit" value="Submit" style={{ width: '100px' }} />
-
+            <MdNavigateNext onClick={handleSubmit} style={{ fontSize: 40 }} />
+            {/* <input type="submit" value="Submit" style={{ width: '100px' }} /> */}
 
 
         </form>
