@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 import { MdDeleteForever } from "react-icons/md";
+import { MdEdit } from "react-icons/md";
 
 
 export const Overview = () => {
@@ -27,6 +28,7 @@ export const Overview = () => {
 
 
 
+
     return (
         <div>
             <h2>Overview</h2>
@@ -38,15 +40,17 @@ export const Overview = () => {
                 showData && getData.map((data: any, index: number) => {
                     return (
                         <div key={index}>
+                            <hr />
                             <Link to={`/details/${data.id}`}>Course:{data.course}</Link>
                             <p>Round: {data.round}</p>
-                            <p>Date: {data.formattedTimestamp}</p>
-                            <button onClick={() => deleteById(data.id)}><MdDeleteForever /></button>
+                            <p>Date: {data.formattedTimestamp.slice(0, 10)}</p>
+                            <button onClick={() => confirm('Are you sure you want to delete?') && deleteById(data.id)}><MdDeleteForever /></button>
+                            <button><MdEdit /></button>
+                            <hr />
                         </div>
                     )
                 })
             }
-            {/* delete */}
         </div>
     )
 }

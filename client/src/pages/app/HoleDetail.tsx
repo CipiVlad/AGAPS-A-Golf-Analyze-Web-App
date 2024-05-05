@@ -27,9 +27,8 @@ const HoleDetail = () => {
                 getDetails.map((data: any, index: number) => {
                     return (
                         <div key={index} className="detailCard">
-                            <h4 >Hole: {data.hole}</h4>
-                            <p>Par: {data.par}</p>
-                            <p>Score: {data.score}</p>
+                            <h4 >Hole: {data.hole} (Par: {data.par})</h4>
+                            <p>Score: <span>{data.score}</span></p>
                             <p>Fairway: {data.fairway}</p>
                             <p>GIR: {data.green}</p>
                             <p>Approach Shot:{data.approach}</p>

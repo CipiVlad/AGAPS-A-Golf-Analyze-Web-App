@@ -6,15 +6,15 @@ import HoleDetail from './pages/app/HoleDetail'
 import Navbar from './components/Navbar'
 import AddCourseInfo from './pages/app/AddCourseInfo'
 import HoleCard from './components/HoleCardStart'
-import NavbarTop from './components/NavbarTop'
+import Home from './pages/app/Home'
 
 function App() {
 
 
   return (
     <div className="App">
-      <NavbarTop />
       <Routes>
+        <Route path="/" element={<Home />} />
         <Route path="/overview" element={<Overview />} />
         <Route path="/details/:id" element={<HoleDetail />} />
         <Route path="/add-round" element={<AddCourseInfo />} />

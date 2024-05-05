@@ -73,7 +73,9 @@ const AddCourseInfo = () => {
                         </option>
                     ))}
                 </select>
-                <button type="submit">Add</button>
+                {
+                    course && round && <button type="submit">Let's Go!</button>
+                }
             </form>
         </div >
     )

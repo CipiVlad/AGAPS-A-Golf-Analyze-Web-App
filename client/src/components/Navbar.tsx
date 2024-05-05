@@ -1,12 +1,40 @@
-import { Link } from "react-router-dom"
+import { Link, useNavigate, useLocation } from "react-router-dom"
+import { RiHome4Line } from "react-icons/ri";
+import { GrOverview } from "react-icons/gr";
+import { IoAddCircleOutline } from "react-icons/io5";
 
 
 const Navbar = () => {
-    const style = { border: "1px solid white", padding: "10px", margin: "10px", borderRadius: "10px" }
+    const { pathname } = useLocation()
+    const navigate = useNavigate()
+    const homeStyle = {
+        backgroundColor: 'black',
+        color: 'white',
+        fontSize: '20px',
+        padding: '10px 20px',
+        borderRadius: '5px',
+        border: 'none',
+        cursor: 'pointer'
+    }
+
+    const navStyle = {
+        padding: "5px",
+        borderRadius: "10px",
+        position: "absolute",
+        bottom: "0",
+        right: "0",
+        left: "0",
+    }
+
+
     return (
-        <div style={style}>
-            <Link to="/add-round" style={{ marginRight: "10px" }}>Add Round</Link>
-            <Link to="/overview">Overview</Link>
+        <div style={navStyle}>
+            <button onClick={() => navigate('/add-round')}><IoAddCircleOutline /></button>
+            <button onClick={() => navigate('/overview')}><GrOverview /></button>
+            {
+                pathname === '/' ? <button style={{ ...homeStyle, display: 'none' }} onClick={() => navigate('/hole-card/1')}><RiHome4Line /></button>
+                    : <button onClick={() => navigate('/')}><RiHome4Line /></button>
+            }
         </div>
     )
 }
