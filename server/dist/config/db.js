@@ -9,4 +9,16 @@ const db = mysql.createConnection({
     password: process.env.password,
     database: process.env.database
 });
+try {
+    db.connect((err) => {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            console.log(`Connected to ${process.env.host}`);
+        }
+    });
+}
+catch (error) {
+}
 exports.default = db;
