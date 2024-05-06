@@ -44,7 +44,7 @@ export const Overview = () => {
 
                     return (
                         <div key={index}>
-                            <Link to={`/details/${data.id}`}>Course:{data.course}</Link>
+                            <Link to={`/details/${data.courseId}`}>Course:{data.course}</Link>
                             <p>Round: {data.round}</p>
                             <p>Date: {data.formattedTimes}</p>
                             <button onClick={() => confirm('Are you sure you want to delete?') && deleteById(data.id)}><MdDeleteForever /></button>
@@ -60,7 +60,7 @@ export const Overview = () => {
                     return (
                         <div key={index}>
                             <hr />
-                            <Link to={`/details/${data.id}`}>Course:{data.course}</Link>
+                            <Link to={`/details/${data.courseId}`}>Course:{data.course}</Link>
                             <p>Round: {data.round}</p>
                             <p>Date: {data.formattedTimes.slice(0, 10)}</p>
                             <button onClick={() => confirm('Are you sure you want to delete?') && deleteById(data.id)}><MdDeleteForever /></button>

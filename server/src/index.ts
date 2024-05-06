@@ -2,11 +2,11 @@ const express = require('express');
 import { Request, Response } from 'express';
 const app = express();
 const dotenv = require('dotenv');
-dotenv.config();
 const cors = require('cors');
 const port = 3000 || process.env.PORT;
 import db from './config/db';
 
+dotenv.config();
 app.use(cors());
 
 app.use(express.urlencoded({ extended: true }));
@@ -18,9 +18,9 @@ app.use(express.json());
 app.post('/course-info', (req: Request, res: Response) => {
     const timestamp = Date.now();
     const formattedTimes = new Date(timestamp).toISOString().replace('T', ' ').split('.')[0];
-    const { courseId, course, round } = req.body;
+    const { course, round, courseId } = req.body;
 
-    const query = `INSERT INTO courseInfo (courseId ,course, round, formattedTimes) VALUES (?,?, ?, ?)`;
+    const query = `INSERT INTO courseInfo (courseId, course, round, formattedTimes) VALUES (?, ?, ? , ?)`;
     db.query(query, [courseId, course, round, formattedTimes], (err: any, data: any) => {
         if (err) {
             return res.json(err);
@@ -31,13 +31,15 @@ app.post('/course-info', (req: Request, res: Response) => {
     })
 })
 
-//create a new table inside of courseInfo where column roundId of agapsTabel matches column id of courseInfo
 app.post('/agaps', (req: Request, res: Response) => {
+    const getCourseId = `SELECT courseInfo.courseId FROM courseInfo`;
 
-    const { hole, par, score, fairway, green, approach, penalty, putts, roundId } = req.body;
+    let { hole, par, score, fairway, green, approach, penalty, putts, roundId = getCourseId } = req.body;
+
+    // insert into agapsTable all fields and set roundId to courseInfo.courseId
 
     const query = `INSERT INTO agapsTable (hole, par, score, fairway, green, approach, penalty, putts, roundId) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
-    db.query(query, [hole, par, score, fairway, green, approach, penalty, putts, roundId], (err: any, data: any) => {
+    db.query(query, [hole, par, score, fairway, green, approach, penalty, putts, roundId, getCourseId], (err: any, data: any) => {
         if (err) {
             return res.json(err);
         } else {
@@ -45,14 +47,31 @@ app.post('/agaps', (req: Request, res: Response) => {
             return res.json(data);
         }
     })
+
+
 })
 
-// get agaps-round by id with courseInfo matching roundId
+// get agaps round by roundId
 app.get('/agaps/:id', (req: Request, res: Response) => {
-    const { roundId } = req.params;
-    //get courseId from courseInfo and agapsTable by roundId
-    const query = `SELECT agapsTable.*, courseInfo.* FROM courseInfo INNER JOIN agapsTable ON courseInfo.id = agapsTable.roundId WHERE courseInfo.roundId = ?`;
-    db.query(query, [roundId], (err: any, data: any) => {
+
+    const { id } = req.params;
+    const query = `SELECT * FROM agapsTable WHERE roundId = ? LIMIT 1`;
+    db.query(query, [id], (err: any, data: any) => {
+        if (err) {
+            return res.json(err);
+        } else if (data.length > 0) {
+            console.log(data[0]);
+            return res.json(data[0]);
+        } else {
+            return res.json({ message: 'No data found' });
+        }
+    })
+})
+
+app.get('/agaps', (req: Request, res: Response) => {
+
+    const query = `SELECT * FROM agapsTable`;
+    db.query(query, (err: any, data: any) => {
         if (err) {
             return res.json(err);
         } else {
@@ -60,10 +79,7 @@ app.get('/agaps/:id', (req: Request, res: Response) => {
             return res.json(data);
         }
     })
-
 })
-
-
 
 //get all courseInfo
 app.get('/course-info', (req: Request, res: Response) => {
