@@ -17,11 +17,11 @@ app.use(express.json());
 //add course info to table
 app.post('/course-info', (req: Request, res: Response) => {
     const timestamp = Date.now();
-    const formattedTimestamp = new Date(timestamp).toISOString().replace('T', ' ').split('.')[0];
-    const { course, round } = req.body;
+    const formattedTimes = new Date(timestamp).toISOString().replace('T', ' ').split('.')[0];
+    const { courseId, course, round } = req.body;
 
-    const query = `INSERT INTO courseInfo (course, round, formattedTimestamp) VALUES (?, ?, ?)`;
-    db.query(query, [course, round, formattedTimestamp], (err: any, data: any) => {
+    const query = `INSERT INTO courseInfo (courseId ,course, round, formattedTimes) VALUES (?,?, ?, ?)`;
+    db.query(query, [courseId, course, round, formattedTimes], (err: any, data: any) => {
         if (err) {
             return res.json(err);
         } else {
@@ -49,10 +49,10 @@ app.post('/agaps', (req: Request, res: Response) => {
 
 // get agaps-round by id with courseInfo matching roundId
 app.get('/agaps/:id', (req: Request, res: Response) => {
-    const { id } = req.params;
-    //get courseInfo by id concatenated with agapsTable by roundId
-    const query = `SELECT agapsTable.*, courseInfo.* FROM courseInfo INNER JOIN agapsTable ON courseInfo.id = agapsTable.roundId WHERE courseInfo.id = ?`;
-    db.query(query, [id], (err: any, data: any) => {
+    const { courseId } = req.params;
+    //get courseInfo by courseId concatenated with agapsTable by roundId
+    const query = `SELECT agapsTable.*, courseInfo.* FROM courseInfo INNER JOIN agapsTable ON courseInfo.id = agapsTable.roundId WHERE courseInfo.courseId = ?`;
+    db.query(query, [courseId], (err: any, data: any) => {
         if (err) {
             return res.json(err);
         } else {

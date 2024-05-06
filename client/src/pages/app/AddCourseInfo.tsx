@@ -1,15 +1,12 @@
 import axios from "axios"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
-
-
 const AddCourseInfo = () => {
 
 
     const navigate = useNavigate()
     const [course, setCourse] = useState<string>("")
     const [round, setRound] = useState<string>("")
-
     const optionCourse = [
         { value: "", text: ">--Choose--<" },
         { value: "GCK", text: "GCK" }
@@ -34,7 +31,6 @@ const AddCourseInfo = () => {
         e.preventDefault()
 
         const newPostObj = {
-
             course: course,
             round: round
         }

@@ -20,7 +20,9 @@ const InputFields = ({ hole, par, link }: { hole: number, par: number, link: str
             // const response = await axios.get(`http://localhost:3000/course-info`)
             const response = await axios.get(`https://agaps-a-golf-analyze-web-app.onrender.com/course-info`)
             response.data !== undefined && setRoundId(response.data[0].id)
+            console.log(response.data[0].id);
         }
+
         fetchData()
     }, [])
 
