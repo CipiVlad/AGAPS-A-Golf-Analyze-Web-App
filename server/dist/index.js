@@ -45,10 +45,10 @@ app.post('/agaps', (req, res) => {
 });
 // get agaps-round by id with courseInfo matching roundId
 app.get('/agaps/:id', (req, res) => {
-    const { courseId } = req.params;
-    //get courseInfo by courseId concatenated with agapsTable by roundId
-    const query = `SELECT agapsTable.*, courseInfo.* FROM courseInfo INNER JOIN agapsTable ON courseInfo.id = agapsTable.roundId WHERE courseInfo.courseId = ?`;
-    db_1.default.query(query, [courseId], (err, data) => {
+    const { roundId } = req.params;
+    //get courseId from courseInfo and agapsTable by roundId
+    const query = `SELECT agapsTable.*, courseInfo.* FROM courseInfo INNER JOIN agapsTable ON courseInfo.id = agapsTable.roundId WHERE courseInfo.roundId = ?`;
+    db_1.default.query(query, [roundId], (err, data) => {
         if (err) {
             return res.json(err);
         }
