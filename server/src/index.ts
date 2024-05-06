@@ -2,11 +2,11 @@ const express = require('express');
 import { Request, Response } from 'express';
 const app = express();
 const dotenv = require('dotenv');
+dotenv.config();
 const cors = require('cors');
-const port = 3000;
+const port = process.env.PORT;
 import db from './config/db';
 
-dotenv.config();
 app.use(cors());
 
 app.use(express.urlencoded({ extended: true }));
