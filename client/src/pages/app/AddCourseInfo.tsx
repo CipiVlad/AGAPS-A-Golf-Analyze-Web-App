@@ -1,6 +1,7 @@
 import axios from "axios"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
+
 const AddCourseInfo = () => {
 
 
@@ -30,7 +31,9 @@ const AddCourseInfo = () => {
     const handleSubmit = async (e: any) => {
         e.preventDefault()
 
+        let createId = Math.random().toString(36).slice(2, 12)
         const newPostObj = {
+            courseId: createId,
             course: course,
             round: round
         }
