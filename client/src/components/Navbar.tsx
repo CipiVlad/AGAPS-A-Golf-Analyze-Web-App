@@ -21,7 +21,7 @@ const Navbar = () => {
     const navStyle = {
         padding: "5px",
         borderRadius: "10px",
-        position: "absolute",
+        // position: "fixed",
         bottom: "0",
         right: "0",
         left: "0",
