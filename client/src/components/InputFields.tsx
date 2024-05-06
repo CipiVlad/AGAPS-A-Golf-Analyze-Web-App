@@ -17,8 +17,8 @@ const InputFields = ({ hole, par, link }: { hole: number, par: number, link: str
     useEffect(() => {
 
         const fetchData = async () => {
-            const response = await axios.get(`http://localhost:3000/course-info`)
-
+            // const response = await axios.get(`http://localhost:3000/course-info`)
+            const response = await axios.get(`https://agaps-a-golf-analyze-web-app.onrender.com/course-info`)
             response.data !== undefined && setRoundId(response.data[0].id)
         }
         fetchData()
@@ -47,7 +47,8 @@ const InputFields = ({ hole, par, link }: { hole: number, par: number, link: str
         }
 
         console.log(newPostObj)
-        const response = await axios.post('http://localhost:3000/agaps', newPostObj)
+        // const response = await axios.post('http://localhost:3000/agaps', newPostObj)
+        const response = await axios.post('https://agaps-a-golf-analyze-web-app.onrender.com/agaps', newPostObj)
         navigate(link)
         console.log(response.data)
     }
