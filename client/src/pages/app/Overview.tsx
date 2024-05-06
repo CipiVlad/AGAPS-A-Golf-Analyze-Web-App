@@ -34,10 +34,22 @@ export const Overview = () => {
             <h2>Overview</h2>
             {/* show the data of the table concat-tables  */}
             <h3>last rounds</h3>
-
-            <button onClick={() => setShowData(!showData)}>{showData ? 'Hide' : 'Show'}</button>
+            {/* show only the last 5 rows */}
             {
-                showData && getData.map((data: any, index: number) => {
+                getData.slice(0, 5).map((data: any, index: number) => {
+                    return (
+                        <div key={index}>
+                            <Link to={`/details/${data.id}`}>Course:{data.course}</Link>
+                            <p>Round: {data.round}</p>
+                            <p>Date: {data.formattedTimestamp.slice(0, 10)}</p>
+                            <hr />
+                        </div>
+                    )
+                })
+            }
+            <button onClick={() => setShowData(!showData)}>{showData ? 'Hide' : 'Show more'}</button>
+            {
+                showData && getData.slice(5).map((data: any, index: number) => {
                     return (
                         <div key={index}>
                             <hr />

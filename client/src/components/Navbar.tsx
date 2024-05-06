@@ -2,6 +2,7 @@ import { Link, useNavigate, useLocation } from "react-router-dom"
 import { RiHome4Line } from "react-icons/ri";
 import { GrOverview } from "react-icons/gr";
 import { IoAddCircleOutline } from "react-icons/io5";
+import { IoMdStats } from "react-icons/io";
 
 
 const Navbar = () => {
@@ -35,6 +36,7 @@ const Navbar = () => {
                 pathname === '/' ? <button style={{ ...homeStyle, display: 'none' }} onClick={() => navigate('/hole-card/1')}><RiHome4Line /></button>
                     : <button onClick={() => navigate('/')}><RiHome4Line /></button>
             }
+            <button onClick={() => navigate('/stats')}><IoMdStats /></button>
         </div>
     )
 }
