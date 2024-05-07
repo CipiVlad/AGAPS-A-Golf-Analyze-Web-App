@@ -26,8 +26,8 @@ const HoleDetail = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const response = await axios.get(`http://localhost:3000/agaps/${id}`)
-            // const response = await axios.get(`https://agaps-a-golf-analyze-web-app.onrender.com/agaps/${courseId}`)
+            // const response = await axios.get(`http://localhost:3000/agaps/${id}`)
+            const response = await axios.get(`https://agaps-a-golf-analyze-web-app.onrender.com/agaps/${id}`)
             setGetDetails(response.data)
             console.log(response.data);
         }

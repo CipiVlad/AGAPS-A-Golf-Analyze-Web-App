@@ -32,8 +32,8 @@ const InputFields = ({ hole, par, link, state }: { hole: number, par: number, li
         }
 
         console.log(newPostObj)
-        const response = await axios.post('http://localhost:3000/agaps', newPostObj)
-        // const response = await axios.post('https://agaps-a-golf-analyze-web-app.onrender.com/agaps', newPostObj)
+        // const response = await axios.post('http://localhost:3000/agaps', newPostObj)
+        const response = await axios.post('https://agaps-a-golf-analyze-web-app.onrender.com/agaps', newPostObj)
         navigate(link, { state: state })
         // console.log(response.data)
     }
