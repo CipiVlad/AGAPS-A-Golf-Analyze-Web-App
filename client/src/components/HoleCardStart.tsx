@@ -9,6 +9,7 @@ import { IoChevronBack } from "react-icons/io5";
 const HoleCard = () => {
     const { pathname } = useLocation()
     const [show, setShow] = useState(false)
+    const { state } = useLocation()
     return (
         <>
             {gckHoles.map((hole: gckAPI, index: number) => {
@@ -22,12 +23,13 @@ const HoleCard = () => {
                                 hole={hole.hole}
                                 par={hole.par}
                                 link={`/hole-card/${hole.hole + 1}`}
+                                state={state}
                             />
                             {/* <Link to={`/hole-card/${hole.hole + 1}`}>Next</Link> */}
                             {
                                 hole.hole === 1
                                     ? null
-                                    : <Link to={`/hole-card/${hole.hole - 1}`}>
+                                    : <Link to={`/hole-card/${hole.hole - 1}`} state={state}>
                                         <IoChevronBack style={{ fontSize: 40 }} />
                                     </Link>
                             }

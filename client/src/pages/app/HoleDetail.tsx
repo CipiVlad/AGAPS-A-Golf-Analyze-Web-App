@@ -17,17 +17,32 @@ interface HoleDetails {
 const HoleDetail = () => {
     // here you fetch the hole detail overview
     // by the courseId matching the roundId (courseInfo server)
-    const { courseId } = useParams()
-    const [getDetails, setGetDetails] = useState({} as HoleDetails)
+    const { id } = useParams()
+    const [getDetails, setGetDetails] = useState([])
+    console.log(id);
+
+
+    // fetch data by roundId
+
     useEffect(() => {
         const fetchData = async () => {
-            // const response = await axios.get(`http://localhost:3000/agaps/${courseId}`)
-            const response = await axios.get(`https://agaps-a-golf-analyze-web-app.onrender.com/agaps/${courseId}`)
+            const response = await axios.get(`http://localhost:3000/agaps/${id}`)
+            // const response = await axios.get(`https://agaps-a-golf-analyze-web-app.onrender.com/agaps/${courseId}`)
             setGetDetails(response.data)
             console.log(response.data);
         }
         fetchData()
     }, [])
+
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //         const response = await axios.get(`http://localhost:3000/agaps/${roundId}`)
+    //         // const response = await axios.get(`https://agaps-a-golf-analyze-web-app.onrender.com/agaps/${courseId}`)
+    //         setGetDetails(response.data)
+    //         console.log(response.data);
+    //     }
+    //     fetchData()
+    // }, [])
 
     // console.log(getDetails);
 
@@ -37,7 +52,7 @@ const HoleDetail = () => {
             <h2>Overview - Hole Details</h2>
 
             {/* render the hole details here */}
-            <div className="detailCard">
+            {/* <div className="detailCard">
                 <h4>Hole: {getDetails.hole} (Par: {getDetails.par})</h4>
                 <p>Score: <span>{getDetails.score}</span></p>
                 <p>Fairway: {getDetails.fairway}</p>
@@ -45,9 +60,9 @@ const HoleDetail = () => {
                 <p>Approach Shot:{getDetails.approach}</p>
                 <p>Penalty Stroke:{getDetails.penalty}</p>
                 <p>Putts: {getDetails.putts}</p>
-            </div>
+            </div> */}
 
-            {/* {
+            {
                 getDetails.map((data: any, index: number) => {
                     return (
                         <div key={index} className="detailCard">
@@ -61,7 +76,7 @@ const HoleDetail = () => {
                         </div>
                     )
                 })
-            } */}
+            }
         </>
     )
 }

@@ -5,21 +5,20 @@ import { Overview } from './pages/app/Overview'
 import HoleDetail from './pages/app/HoleDetail'
 import Navbar from './components/Navbar'
 import AddCourseInfo from './pages/app/AddCourseInfo'
-import HoleCard from './components/HoleCardStart'
+import HoleCardStart from './components/HoleCardStart'
 import Home from './pages/app/Home'
 import TotalSummary from './pages/app/TotalSummary'
+import axios from 'axios'
 
 function App() {
-
-
   return (
     <div className="App">
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/overview" element={<Overview />} />
-        <Route path="/details/:courseId" element={<HoleDetail />} />
+        <Route path="/details/:id" element={<HoleDetail />} />
         <Route path="/add-round" element={<AddCourseInfo />} />
-        <Route path="/hole-card/:id" element={<HoleCard />} />
+        <Route path="/hole-card/:id" element={<HoleCardStart />} />
         <Route path="/stats" element={<TotalSummary />} />
       </Routes>
       <Navbar />

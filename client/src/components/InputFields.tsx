@@ -4,9 +4,8 @@ import { useNavigate } from "react-router-dom"
 import './InputFields.css'
 import { MdNavigateNext } from "react-icons/md";
 
-const InputFields = ({ hole, par, link }: { hole: number, par: number, link: string }) => {
+const InputFields = ({ hole, par, link, state }: { hole: number, par: number, link: string, state: string }) => {
     const navigate = useNavigate()
-    const [roundId, setRoundId] = useState<number>()
     const [score, setScore] = useState<number>()
     const [fairway, setFairway] = useState<string>()
     const [green, setGreen] = useState<string>()
@@ -14,23 +13,7 @@ const InputFields = ({ hole, par, link }: { hole: number, par: number, link: str
     const [penalty, setPenalty] = useState<number>()
     const [putts, setPutts] = useState<number>()
 
-    useEffect(() => {
-
-        const fetchData = async () => {
-            // const response = await axios.get(`http://localhost:3000/course-info`)
-            const response = await axios.get(`https://agaps-a-golf-analyze-web-app.onrender.com/course-info`)
-            response.data !== undefined && setRoundId(response.data[0].id)
-            console.log(response.data[0].id);
-        }
-
-        fetchData()
-    }, [])
-
-    console.log(roundId);
-
-
-
-
+    console.log(state);
 
 
     const handleSubmit = async (e: any) => {
@@ -39,7 +22,7 @@ const InputFields = ({ hole, par, link }: { hole: number, par: number, link: str
         const newPostObj = {
             hole: hole,
             par: par,
-            roundId: roundId,
+            roundId: state,
             score: score,
             fairway: fairway,
             green: green,
@@ -49,10 +32,10 @@ const InputFields = ({ hole, par, link }: { hole: number, par: number, link: str
         }
 
         console.log(newPostObj)
-        // const response = await axios.post('http://localhost:3000/agaps', newPostObj)
-        const response = await axios.post('https://agaps-a-golf-analyze-web-app.onrender.com/agaps', newPostObj)
-        navigate(link)
-        console.log(response.data)
+        const response = await axios.post('http://localhost:3000/agaps', newPostObj)
+        // const response = await axios.post('https://agaps-a-golf-analyze-web-app.onrender.com/agaps', newPostObj)
+        navigate(link, { state: state })
+        // console.log(response.data)
     }
 
 
@@ -69,9 +52,6 @@ const InputFields = ({ hole, par, link }: { hole: number, par: number, link: str
         <form
             onSubmit={handleSubmit}
             method="post" style={style}>
-
-            <label htmlFor="RoundId" style={styleDisplayHidden}>RoundId</label>
-            <input style={styleDisplayHidden} type="text" name="roundId" value={roundId} onChange={(e) => setRoundId(Number(e.target.value))} />
 
             <label htmlFor="Score">Score</label>
             <input type="text" name="score" value={score} onChange={(e) => setScore(Number(e.target.value))} />

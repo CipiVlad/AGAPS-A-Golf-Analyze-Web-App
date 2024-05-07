@@ -1,13 +1,15 @@
 import axios from "axios"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
-
+import HoleCardStart from "../../components/HoleCardStart"
 const AddCourseInfo = () => {
 
+    const [showHoleCard, setShowHoleCard] = useState<boolean>(false)
 
     const navigate = useNavigate()
     const [course, setCourse] = useState<string>("")
     const [round, setRound] = useState<string>("")
+    let [newPostObj, setNewPostObj] = useState<any>()
     const optionCourse = [
         { value: "", text: ">--Choose--<" },
         { value: "GCK", text: "GCK" }
@@ -26,24 +28,32 @@ const AddCourseInfo = () => {
         setRound(e.target.value)
     }
 
-
+    //random String
+    const randomString = () => {
+        let result = ''
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+        const charactersLength = characters.length
+        for (let i = 0; i < 8; i++) {
+            result += characters.charAt(Math.floor(Math.random() * charactersLength))
+        }
+        return result
+    }
 
     const handleSubmit = async (e: any) => {
         e.preventDefault()
 
-        let createId = Math.random().toString(36).slice(2, 12)
-        const newPostObj = {
-            courseId: createId,
+        newPostObj = {
+            roundId: randomString(),
             course: course,
             round: round
         }
 
         try {
-            // const response = await axios.post("http://localhost:3000/course-info", newPostObj)
-            const response = await axios.post("https://agaps-a-golf-analyze-web-app.onrender.com/course-info", newPostObj)
-            console.log(response)
-
-            navigate("/hole-card/1")
+            const response = await axios.post("http://localhost:3000/course-info", newPostObj)
+            // const response = await axios.post("https://agaps-a-golf-analyze-web-app.onrender.com/course-info", newPostObj)
+            console.log(response.data.insertedId)
+            setNewPostObj(response.data.insertedId)
+            navigate("/hole-card/1", { state: newPostObj.roundId })
         } catch (error) {
             console.log(error)
         }
@@ -73,9 +83,14 @@ const AddCourseInfo = () => {
                         </option>
                     ))}
                 </select>
+
+
                 {
-                    course && round && <button type="submit">Let's Go!</button>
+                    course && round && <button type="submit" >Let's Go!</button>
                 }
+
+
+
             </form>
         </div >
     )

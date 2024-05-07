@@ -10,24 +10,26 @@ export const Overview = () => {
     const [getDataById, setGetDataById] = useState([])
     const [showData, setShowData] = useState(false)
 
-    useEffect(() => {
-        const fetchData = async () => {
-            // const response = await axios.get('http://localhost:3000/course-info')
-            const response = await axios.get('https://agaps-a-golf-analyze-web-app.onrender.com/course-info')
-            setGetData(response.data)
-            console.log(response.data);
-        }
-        fetchData()
-    }, [])
-
     // delete by id
     const deleteById = async (id: number) => {
-        // const response = await axios.delete(`http://localhost:3000/course-info/${id}`)
-        const response = await axios.delete(`https://agaps-a-golf-analyze-web-app.onrender.com/course-info/${id}`)
+        const response = await axios.delete(`http://localhost:3000/course-info/${id}`)
+        // const response = await axios.delete(`https://agaps-a-golf-analyze-web-app.onrender.com/course-info/${id}`)
         setGetDataById(response.data)
         console.log(response.data);
     }
 
+    useEffect(() => {
+        const fetchData = async () => {
+            const response = await axios.get('http://localhost:3000/course-info')
+            // const response = await axios.get('https://agaps-a-golf-analyze-web-app.onrender.com/course-info')
+            setGetData(response.data)
+            console.log(getData);
+        }
+        fetchData()
+    }, [])
+
+
+    console.log(getData);
 
 
 
@@ -44,7 +46,7 @@ export const Overview = () => {
 
                     return (
                         <div key={index}>
-                            <Link to={`/details/${data.courseId}`}>Course:{data.course}</Link>
+                            <Link to={`/details/${data.roundId}`}>Course:{data.course}</Link>
                             <p>Round: {data.round}</p>
                             <p>Date: {data.formattedTimes}</p>
                             <button onClick={() => confirm('Are you sure you want to delete?') && deleteById(data.id)}><MdDeleteForever /></button>
@@ -55,7 +57,7 @@ export const Overview = () => {
                 })
             }
             <button onClick={() => setShowData(!showData)}>{showData ? 'Hide' : 'Show more'}</button>
-            {
+            {/* {
                 showData && getData.slice(5).map((data: any, index: number) => {
                     return (
                         <div key={index}>
@@ -69,7 +71,7 @@ export const Overview = () => {
                         </div>
                     )
                 })
-            }
+            } */}
         </div>
     )
 }
