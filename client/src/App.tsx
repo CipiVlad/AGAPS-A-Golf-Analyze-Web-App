@@ -8,7 +8,6 @@ import AddCourseInfo from './pages/app/AddCourseInfo'
 import HoleCardStart from './components/HoleCardStart'
 import Home from './pages/app/Home'
 import TotalSummary from './pages/app/TotalSummary'
-import axios from 'axios'
 
 function App() {
   return (

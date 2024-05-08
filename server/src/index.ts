@@ -80,7 +80,7 @@ app.get('/agaps/:id', (req: Request, res: Response) => {
 app.put('/agaps/:id', (req: Request, res: Response) => {
     const { id } = req.params;
     const { hole, par, score, fairway, green, approach, penalty, putts } = req.body;
-    const query = `UPDATE agapsTable SET hole = ?, par = ?, score = ?, fairway = ?, green = ?, approach = ?, penalty = ?, putts = ? WHERE roundId = ?`;
+    const query = `UPDATE agapsTable SET hole = ?, par = ?, score = ?, fairway = ?, green = ?, approach = ?, penalty = ?, putts = ? WHERE id = ?`;
     db.query(query, [hole, par, score, fairway, green, approach, penalty, putts, id], (err: any, data: any) => {
         if (err) {
             return res.json(err);
