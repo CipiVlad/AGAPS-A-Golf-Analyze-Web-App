@@ -3,7 +3,7 @@ import axios from 'axios'
 import { Link } from 'react-router-dom'
 import { MdDeleteForever } from "react-icons/md";
 import { MdEdit } from "react-icons/md";
-
+import './Overview.css'
 
 export const Overview = () => {
     const [getData, setGetData] = useState([])
@@ -12,21 +12,21 @@ export const Overview = () => {
 
     // delete by id
     const deleteById = async (id: number) => {
-        // const response = await axios.delete(`http://localhost:3000/course-info/${id}`)
-        const response = await axios.delete(`https://agaps-a-golf-analyze-web-app.onrender.com/course-info/${id}`)
+        const response = await axios.delete(`http://localhost:3000/course-info/${id}`)
+        // const response = await axios.delete(`https://agaps-a-golf-analyze-web-app.onrender.com/course-info/${id}`)
         setGetDataById(response.data)
         console.log(response.data);
     }
 
     useEffect(() => {
         const fetchData = async () => {
-            // const response = await axios.get('http://localhost:3000/course-info')
-            const response = await axios.get('https://agaps-a-golf-analyze-web-app.onrender.com/course-info')
+            const response = await axios.get('http://localhost:3000/course-info')
+            // const response = await axios.get('https://agaps-a-golf-analyze-web-app.onrender.com/course-info')
             setGetData(response.data)
             console.log(getData);
         }
         fetchData()
-    }, [])
+    }, [getDataById])
 
 
     console.log(getData);
@@ -41,37 +41,52 @@ export const Overview = () => {
             {/* show only the last 5 rows */}
             {
                 // getData.slice(0, 5).map((data: any, index: number) => {
-                getData.map((data: any, index: number) => {
-
-
+                getData.slice(0, 1).map((data: any, index: number) => {
                     return (
-                        <div key={index}>
-                            <Link to={`/details/${data.roundId}`}>Course:{data.course}</Link>
-                            <p>Round: {data.round}</p>
-                            <p>Date: {data.formattedTimes}</p>
-                            <button onClick={() => confirm('Are you sure you want to delete?') && deleteById(data.id)}><MdDeleteForever /></button>
-                            <button><MdEdit /></button>
-                            <hr />
-                        </div>
+                        <>
+                            <div key={index} className="overviewCard">
+                                <Link to={`/details/${data.roundId}`}>Course:{data.course}</Link>
+                                <div className='date_round'>
+                                    <p>Round: {data.round}</p>
+                                    <p>Date: {data.formattedTimes.slice(0, 10)}</p>
+                                </div>
+                                <div className='edit_delete'>
+                                    <button onClick={() => confirm('Are you sure you want to delete?') && deleteById(data.roundId)}><MdDeleteForever /></button>
+                                    <button><MdEdit /></button>
+                                </div>
+                                <hr />
+                            </div>
+                        </>
                     )
                 })
             }
-            <button onClick={() => setShowData(!showData)}>{showData ? 'Hide' : 'Show more'}</button>
-            {/* {
-                showData && getData.slice(5).map((data: any, index: number) => {
+            {
+                showData && getData.slice(1).map((data: any, index: number) => {
                     return (
-                        <div key={index}>
-                            <hr />
-                            <Link to={`/details/${data.courseId}`}>Course:{data.course}</Link>
-                            <p>Round: {data.round}</p>
-                            <p>Date: {data.formattedTimes.slice(0, 10)}</p>
-                            <button onClick={() => confirm('Are you sure you want to delete?') && deleteById(data.id)}><MdDeleteForever /></button>
-                            <button><MdEdit /></button>
-                            <hr />
-                        </div>
+                        <>
+                            <div key={index} className="overviewCard">
+                                <Link to={`/details/${data.roundId}`}>Course:{data.course}</Link>
+                                <div className='date_round'>
+                                    <p>Round: {data.round}</p>
+                                    <p>Date: {data.formattedTimes.slice(0, 10)}</p>
+                                </div>
+                                <div className='edit_delete'>
+                                    <button onClick={() => confirm('Are you sure you want to delete?') && deleteById(data.id)}><MdDeleteForever /></button>
+                                    <button><MdEdit /></button>
+                                </div>
+                                <hr />
+                            </div>
+                        </>
+
                     )
-                })
-            } */}
+                }
+                )
+            }
+
+            <button
+                onClick={() => setShowData(!showData)}>
+                {showData ? 'Hide' : 'Show more'}
+            </button>
         </div>
     )
 }

@@ -59,6 +59,8 @@ app.post('/agaps', (req: Request, res: Response) => {
     })
 })
 
+
+
 // get agaps round by roundId
 app.get('/agaps/:id', (req: Request, res: Response) => {
     const { id } = req.params;
@@ -75,69 +77,13 @@ app.get('/agaps/:id', (req: Request, res: Response) => {
 
 
 
-
-
-
-
-// app.post('/agaps', (req: Request, res: Response) => {
-//     const getCourseId = `SELECT courseInfo.courseId FROM courseInfo`;
-//     console.log(getCourseId);
-
-//     // let { hole, par, score, fairway, green, approach, penalty, putts, roundId = getCourseId } = req.body;
-
-//     // // insert into agapsTable all fields and set roundId to courseInfo.courseId
-
-//     // const query = `INSERT INTO agapsTable (hole, par, score, fairway, green, approach, penalty, putts, roundId) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
-//     // db.query(query, [hole, par, score, fairway, green, approach, penalty, putts, roundId, getCourseId], (err: any, data: any) => {
-//     //     if (err) {
-//     //         return res.json(err);
-//     //     } else {
-//     //         console.log(data);
-//     //         return res.json(data);
-//     //     }
-//     // })
-
-
-// })
-
-// get agaps round by roundId
-// app.get('/agaps/:id', (req: Request, res: Response) => {
-
-//     const { id } = req.params;
-//     const query = `SELECT * FROM agapsTable WHERE roundId = ? LIMIT 1`;
-//     db.query(query, [id], (err: any, data: any) => {
-//         if (err) {
-//             return res.json(err);
-//         } else if (data.length > 0) {
-//             console.log(data[0]);
-//             return res.json(data[0]);
-//         } else {
-//             return res.json({ message: 'No data found' });
-//         }
-//     })
-// })
-
-
-// app.get('/agaps', (req: Request, res: Response) => {
-
-//     const query = `SELECT * FROM agapsTable`;
-//     db.query(query, (err: any, data: any) => {
-//         if (err) {
-//             return res.json(err);
-//         } else {
-//             console.log(data);
-//             return res.json(data);
-//         }
-//     })
-// })
-
-//get all courseInfo
-
-// delete courseInfo and agapsTable by id
+// delete courseInfo and agapsTable by roundId
 app.delete('/course-info/:id', (req: Request, res: Response) => {
     const { id } = req.params;
-    const query = `DELETE FROM courseInfo WHERE id = ?`;
-    db.query(query, [id], (err: any, data: any) => {
+
+    //delete data from courseInfo and agapsTable by roundId
+    const deleteQuery = `DELETE courseInfo, agapsTable FROM courseInfo JOIN agapsTable ON courseInfo.roundId = agapsTable.roundId WHERE courseInfo.roundId = ?`;
+    db.query(deleteQuery, [id], (err: any, data: any) => {
         if (err) {
             return res.json(err);
         } else {
@@ -145,21 +91,9 @@ app.delete('/course-info/:id', (req: Request, res: Response) => {
             return res.json(data);
         }
     })
+
 })
 
-// //delete agapsTable by id
-// app.delete('/agaps/:id', (req: Request, res: Response) => {
-//     const { id } = req.params;
-//     const query = `DELETE FROM agapsTable WHERE id = ?`;
-//     db.query(query, [id], (err: any, data: any) => {
-//         if (err) {
-//             return res.json(err);
-//         } else {
-//             console.log(data);
-//             return res.json(data);
-//         }
-//     })
-// })
 
 
 // listener
