@@ -29,7 +29,7 @@ const HoleCard = () => {
                                 hole.hole === 1
                                     ? null
                                     : <Link to={`/hole-card/${hole.hole - 1}`} state={state}>
-                                        <IoChevronBack style={{ fontSize: 40 }} />
+                                        <IoChevronBack style={{ fontSize: 26 }} />
                                     </Link>
                             }
                         </div>

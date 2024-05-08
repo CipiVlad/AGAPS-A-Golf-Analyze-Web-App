@@ -12,7 +12,13 @@ const Navbar = () => {
 
     return (
         <nav className="nav_container">
-            <button onClick={() => navigate('/add-round')}><IoAddCircleOutline /></button>
+            {/* don't display nav_container if pathname is '/add-round' */}
+            {
+                pathname == '/add-round' || pathname.includes('hole-card') ? null : <button onClick={() => navigate('/add-round')}><IoAddCircleOutline /></button>
+
+            }
+
+
             <button onClick={() => navigate('/overview')}><GrOverview /></button>
             {
                 pathname === '/' ? <button style={{ display: 'none' }}><RiHome4Line /></button>

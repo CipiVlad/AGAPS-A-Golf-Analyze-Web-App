@@ -12,7 +12,7 @@ npm run build
 
 ### Challenges
 
-#### Problem:
+#### Issues:
 ##### Task server site
 
 (1) User selects courseInfo with input "course = 'GCK'" and "round = 'half'/'full' " » id is set by db on default
@@ -21,9 +21,20 @@ npm run build
 
 ##### Task client site
 - client :
+(1) when User selects 'half' end round after 9 holes, 'full' after 18
 (3) binding courseInfo and agapsTable -- matching roundId to id of courseInfo
-(4) take id of courseInfo slected, and set it equal to roundId
-(5) when 18 holes finished, binding is done
+
+(4) take id of courseInfo slected, and set it equal to roundId 
+    --> passing state with useNavigate to certain Components like: HoleCardStart.tsx and InputFields.tsx
+ ```js
+ ///  useNavigate
+    navigate("/hole-card/1", { state: newPostObj.roundId })
+ ```
+(5) when User:
+    -- is in round and ends round before finishing 'half' or 'full' by leaving window
+        -- send message to User: "Do you really want to finish round here?"
+        -- let User continue where left
+        -- make use of sessionStorage?
 
 ### Screenshot
 

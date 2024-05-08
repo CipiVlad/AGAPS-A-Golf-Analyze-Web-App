@@ -33,6 +33,17 @@ export const Overview = () => {
 
 
 
+
+    //send to edit route
+    const handleEdit = async (roundId: string) => {
+        const response = await axios.get(`http://localhost:3000/agaps/${roundId}`)
+        // const response = await axios.get(`https://agaps-a-golf-analyze-web-app.onrender.com/course-info/${id}`)
+        // setGetDataById(response.data)
+        // setShowData(true)
+        console.log(response.data);
+
+    }
+
     return (
         <div>
             <h2>Overview</h2>
@@ -52,7 +63,7 @@ export const Overview = () => {
                                 </div>
                                 <div className='edit_delete'>
                                     <button onClick={() => confirm('Are you sure you want to delete?') && deleteById(data.roundId)}><MdDeleteForever /></button>
-                                    <button><MdEdit /></button>
+                                    <button onClick={() => handleEdit(data.roundId)}><MdEdit /></button>
                                 </div>
                                 <hr />
                             </div>
@@ -72,7 +83,7 @@ export const Overview = () => {
                                 </div>
                                 <div className='edit_delete'>
                                     <button onClick={() => confirm('Are you sure you want to delete?') && deleteById(data.id)}><MdDeleteForever /></button>
-                                    <button><MdEdit /></button>
+                                    <button onClick={() => handleEdit(data.id)}><MdEdit /></button>
                                 </div>
                                 <hr />
                             </div>

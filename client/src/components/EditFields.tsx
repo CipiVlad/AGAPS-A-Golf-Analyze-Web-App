@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom"
 import './InputFields.css'
 import { MdNavigateNext } from "react-icons/md";
 
-const InputFields = ({ hole, par, link, state }: { hole: number, par: number, link: string, state: string }) => {
+const EditFields = ({ hole, par }: { hole: number, par: number }) => {
     const navigate = useNavigate()
     const [score, setScore] = useState<number>()
     const [fairway, setFairway] = useState<string>()
@@ -96,4 +96,4 @@ const InputFields = ({ hole, par, link, state }: { hole: number, par: number, li
         </form>
     )
 }
-export default InputFields
+export default EditFields
