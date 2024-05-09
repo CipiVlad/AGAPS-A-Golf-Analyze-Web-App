@@ -11,8 +11,8 @@ const EditHole = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const response = await axios.get(`http://localhost:3000/single-agap/${id}`)
-            // const response = await axios.get(`https://agaps-a-golf-analyze-web-app.onrender.com/single-agap/${id}`)
+            // const response = await axios.get(`http://localhost:3000/single-agap/${id}`)
+            const response = await axios.get(`https://agaps-a-golf-analyze-web-app.onrender.com/single-agap/${id}`)
             setGetDetails(response.data)
             setGetHoleId(response.data[0].id)
             console.log(response.data[0].id);
@@ -50,8 +50,8 @@ const EditHole = () => {
         // console.log(newPostObj)
 
         try {
-            const response = await axios.put(`http://localhost:3000/agaps/${getHoleId}`, newPostObj)
-            // const response = await axios.put(`https://agaps-a-golf-analyze-web-app.onrender.com/agaps/${id}`, newPostObj)
+            // const response = await axios.put(`http://localhost:3000/agaps/${getHoleId}`, newPostObj)
+            const response = await axios.put(`https://agaps-a-golf-analyze-web-app.onrender.com/agaps/${getHoleId}`, newPostObj)
             console.log(response.data);
             setGetDetails((prev: any) => [...prev, response.data])
 
