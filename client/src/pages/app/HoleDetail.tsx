@@ -9,7 +9,7 @@ const HoleDetail = () => {
     // by the courseId matching the roundId (courseInfo server)
     const { id } = useParams()
     const [getDetails, setGetDetails] = useState<any>([])
-
+    const [getHoleId, setGetHoleId] = useState<number>()
 
 
     // fetch data by id
@@ -18,46 +18,50 @@ const HoleDetail = () => {
             const response = await axios.get(`http://localhost:3000/agaps/${id}`)
             // const response = await axios.get(`https://agaps-a-golf-analyze-web-app.onrender.com/agaps/${id}`)
             setGetDetails(response.data)
-            // console.log(response.data);
+            setGetHoleId(response.data[0].id)
         }
         fetchData()
-    }, [])
+    }, [id])
+
+    // console.log(getHoleId);
 
 
 
 
-    const [score, setScore] = useState<number>()
-    const [fairway, setFairway] = useState<string>()
-    const [green, setGreen] = useState<string>()
-    const [approach, setApproach] = useState<string>()
-    const [penalty, setPenalty] = useState<number>()
-    const [putts, setPutts] = useState<number>()
+    const [inputState, setInputState] = useState<any>([])
 
+    const handleInputChange = (e: any) => {
+        const { name, value } = e.target;
+        setInputState((prev: any) => ({
+            ...prev,
+            [name]: value
+        }))
+    }
 
-    //send to edit route
-    const updateHole = async (e: any, id: number) => {
+    const updateHole = async (e: any) => {
         e.preventDefault()
 
         const newPostObj = {
-            id: id,
+            id: getHoleId,
             hole: getDetails.map((data: any) => data.hole),
             par: getDetails.map((data: any) => data.par),
             roundId: getDetails.map((data: any) => data.roundId),
-            score: score,
-            fairway: fairway,
-            green: green,
-            approach: approach,
-            penalty: penalty,
-            putts: putts
+            score: inputState.score || getDetails.map((data: any) => data.score),
+            fairway: inputState.fairway || getDetails.map((data: any) => data.fairway),
+            green: inputState.green || getDetails.map((data: any) => data.green),
+            approach: inputState.approach || getDetails.map((data: any) => data.approach),
+            penalty: inputState.penalty || getDetails.map((data: any) => data.penalty),
+            putts: inputState.putts || getDetails.map((data: any) => data.putts)
         }
 
-        console.log(newPostObj)
+        // console.log(newPostObj)
 
         try {
-            const response = await axios.put(`http://localhost:3000/agaps/${id}`, newPostObj)
+            const response = await axios.put(`http://localhost:3000/agaps/${getHoleId}`, newPostObj)
             // const response = await axios.put(`https://agaps-a-golf-analyze-web-app.onrender.com/agaps/${id}`, newPostObj)
             console.log(response.data);
             setGetDetails((prev: any) => [...prev, response.data])
+
         } catch (error) {
             console.log(error)
         }
@@ -74,32 +78,25 @@ const HoleDetail = () => {
                 getDetails.map((data: any, index: number) => {
                     return (
                         <div key={index} className="detailCard">
-                            <h4 >Hole: {data.hole} (Par: {data.par})</h4>
-                            <p>Score: <span>{data.score}</span></p>
-                            <p>Fairway: {data.fairway}</p>
-                            <p>GIR: {data.green}</p>
-                            <p>Approach Shot:{data.approach}</p>
-                            <p>Penalty Stroke:{data.penalty}</p>
-                            <p>Putts: {data.putts}</p>
-                            {/* <label htmlFor="score">Score:</label>
-                            <input type="text" id="score" name="score" onChange={(e) => setScore(Number(e.target.value))} value={score} placeholder={data.score} />
+                            <label htmlFor="score">Score:</label>
+                            <input type="text" id="score" name="score" onChange={handleInputChange} value={inputState.score || data.score} placeholder={data.score} />
                             <label htmlFor="fairway">Fairway:</label>
-                            <input type="text" id="fairway" name="fairway" onChange={(e) => setFairway(e.target.value)} value={fairway} />
+                            <input type="text" id="fairway" name="fairway" onChange={handleInputChange} value={inputState.fairway || data.fairway} />
                             <label htmlFor="green">Green:</label>
-                            <input type="text" id="green" name="green" onChange={(e) => setGreen(e.target.value)} value={green} />
+                            <input type="text" id="green" name="green" onChange={handleInputChange} value={inputState.green || data.green} />
                             <label htmlFor="approach">Approach:</label>
-                            <input type="text" id="approach" name="approach" onChange={(e) => setApproach(e.target.value)} value={approach} />
+                            <input type="text" id="approach" name="approach" onChange={handleInputChange} value={inputState.approach || data.approach} />
                             <label htmlFor="penalty">Penalty:</label>
-                            <input type="text" id="penalty" name="penalty" onChange={(e) => setPenalty(Number(e.target.value))} value={penalty} />
+                            <input type="text" id="penalty" name="penalty" onChange={handleInputChange} value={inputState.penalty || data.penalty} />
                             <label htmlFor="putts">Putts:</label>
-                            <input type="text" id="putts" name="putts" onChange={(e) => setPutts(Number(e.target.value))} value={putts} /> */}
+                            <input type="text" id="putts" name="putts" onChange={handleInputChange} value={inputState.putts || data.putts} />
 
-                            <button onClick={(e) => updateHole(e, data.id)}><MdEdit /></button>
 
                         </div>
                     )
                 })
             }
+            <button onClick={(e) => updateHole(e)}><MdEdit /></button>
         </>
     )
 }
