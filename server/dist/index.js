@@ -70,52 +70,10 @@ app.get('/agaps/:id', (req, res) => {
         }
     });
 });
-// app.post('/agaps', (req: Request, res: Response) => {
-//     const getCourseId = `SELECT courseInfo.courseId FROM courseInfo`;
-//     console.log(getCourseId);
-//     // let { hole, par, score, fairway, green, approach, penalty, putts, roundId = getCourseId } = req.body;
-//     // // insert into agapsTable all fields and set roundId to courseInfo.courseId
-//     // const query = `INSERT INTO agapsTable (hole, par, score, fairway, green, approach, penalty, putts, roundId) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
-//     // db.query(query, [hole, par, score, fairway, green, approach, penalty, putts, roundId, getCourseId], (err: any, data: any) => {
-//     //     if (err) {
-//     //         return res.json(err);
-//     //     } else {
-//     //         console.log(data);
-//     //         return res.json(data);
-//     //     }
-//     // })
-// })
-// get agaps round by roundId
-// app.get('/agaps/:id', (req: Request, res: Response) => {
-//     const { id } = req.params;
-//     const query = `SELECT * FROM agapsTable WHERE roundId = ? LIMIT 1`;
-//     db.query(query, [id], (err: any, data: any) => {
-//         if (err) {
-//             return res.json(err);
-//         } else if (data.length > 0) {
-//             console.log(data[0]);
-//             return res.json(data[0]);
-//         } else {
-//             return res.json({ message: 'No data found' });
-//         }
-//     })
-// })
-// app.get('/agaps', (req: Request, res: Response) => {
-//     const query = `SELECT * FROM agapsTable`;
-//     db.query(query, (err: any, data: any) => {
-//         if (err) {
-//             return res.json(err);
-//         } else {
-//             console.log(data);
-//             return res.json(data);
-//         }
-//     })
-// })
-//get all courseInfo
-// delete courseInfo and agapsTable by id
-app.delete('/course-info/:id', (req, res) => {
+//get single agap by id
+app.get('/single-agap/:id', (req, res) => {
     const { id } = req.params;
-    const query = `DELETE FROM courseInfo WHERE id = ?`;
+    const query = `SELECT * FROM agapsTable WHERE id = ?`;
     db_1.default.query(query, [id], (err, data) => {
         if (err) {
             return res.json(err);
@@ -126,19 +84,36 @@ app.delete('/course-info/:id', (req, res) => {
         }
     });
 });
-// //delete agapsTable by id
-// app.delete('/agaps/:id', (req: Request, res: Response) => {
-//     const { id } = req.params;
-//     const query = `DELETE FROM agapsTable WHERE id = ?`;
-//     db.query(query, [id], (err: any, data: any) => {
-//         if (err) {
-//             return res.json(err);
-//         } else {
-//             console.log(data);
-//             return res.json(data);
-//         }
-//     })
-// })
+//update agaps round by roundId
+app.put('/agaps/:id', (req, res) => {
+    const { id } = req.params;
+    const { hole, par, score, fairway, green, approach, penalty, putts } = req.body;
+    const query = `UPDATE agapsTable SET hole = ?, par = ?, score = ?, fairway = ?, green = ?, approach = ?, penalty = ?, putts = ? WHERE id = ?`;
+    db_1.default.query(query, [hole, par, score, fairway, green, approach, penalty, putts, id], (err, data) => {
+        if (err) {
+            return res.json(err);
+        }
+        else {
+            console.log(data);
+            return res.json(data);
+        }
+    });
+});
+// delete courseInfo and agapsTable by roundId
+app.delete('/course-info/:id', (req, res) => {
+    const { id } = req.params;
+    //delete data from courseInfo and agapsTable by roundId
+    const deleteQuery = `DELETE courseInfo, agapsTable FROM courseInfo JOIN agapsTable ON courseInfo.roundId = agapsTable.roundId WHERE courseInfo.roundId = ?`;
+    db_1.default.query(deleteQuery, [id], (err, data) => {
+        if (err) {
+            return res.json(err);
+        }
+        else {
+            console.log(data);
+            return res.json(data);
+        }
+    });
+});
 // listener
 app.listen(3000, () => {
     console.log(`The application is listening on ${port}!`);
