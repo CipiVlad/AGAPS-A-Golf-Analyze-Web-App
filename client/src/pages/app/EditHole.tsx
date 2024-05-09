@@ -50,8 +50,8 @@ const EditHole = () => {
         // console.log(newPostObj)
 
         try {
-            // const response = await axios.put(`http://localhost:3000/agaps/${getHoleId}`, newPostObj)
-            const response = await axios.put(`https://agaps-a-golf-analyze-web-app.onrender.com/agaps/${getHoleId}`, newPostObj)
+            const response = await axios.put(`http://localhost:3000/agaps/${getHoleId}`, newPostObj)
+            // const response = await axios.put(`https://agaps-a-golf-analyze-web-app.onrender.com/agaps/${id}`, newPostObj)
             console.log(response.data);
             setGetDetails((prev: any) => [...prev, response.data])
 

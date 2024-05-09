@@ -18,7 +18,7 @@ const HoleDetail = () => {
             // const response = await axios.get(`http://localhost:3000/agaps/${id}`)
             const response = await axios.get(`https://agaps-a-golf-analyze-web-app.onrender.com/agaps/${id}`)
             setGetDetails(response.data)
-            setGetHoleId(response.data[0].id)
+            // setGetHoleId(response.data[0].id)
         }
         fetchData()
     }, [id])
