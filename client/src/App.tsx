@@ -17,8 +17,8 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/overview" element={<Overview />} />
         <Route path="/add-round" element={<AddCourseInfo />} />
-        <Route path="/hole-card/:id" element={<HoleCardStart />} />
         <Route path="/details/:id" element={<HoleDetail />} />
+        <Route path="/hole-card/:id" element={<HoleCardStart />} />
         <Route path="/edit/:id" element={< EditHole />} />
         <Route path="/stats" element={<TotalSummary />} />
       </Routes>
