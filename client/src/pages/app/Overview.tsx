@@ -74,7 +74,7 @@ export const Overview = () => {
                                     <p>Date: {data.formattedTimes.slice(0, 10)}</p>
                                 </div>
                                 <div className='edit_delete'>
-                                    <button onClick={() => confirm('Are you sure you want to delete?') && deleteById(data.id)}><MdDeleteForever /></button>
+                                    <button onClick={() => confirm('Are you sure you want to delete?') && deleteById(data.roundId)}><MdDeleteForever /></button>
                                 </div>
                                 <hr />
                             </div>
