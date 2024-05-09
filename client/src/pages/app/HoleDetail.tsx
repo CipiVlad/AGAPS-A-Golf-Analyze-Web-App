@@ -1,6 +1,6 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
-import { useLocation, useParams } from "react-router-dom"
+import { Link, useLocation, useParams } from "react-router-dom"
 import './HoleDetail.css'
 import { MdEdit } from "react-icons/md";
 
@@ -78,25 +78,37 @@ const HoleDetail = () => {
                 getDetails.map((data: any, index: number) => {
                     return (
                         <div key={index} className="detailCard">
-                            <label htmlFor="score">Score:</label>
-                            <input type="text" id="score" name="score" onChange={handleInputChange} value={inputState.score || data.score} placeholder={data.score} />
-                            <label htmlFor="fairway">Fairway:</label>
-                            <input type="text" id="fairway" name="fairway" onChange={handleInputChange} value={inputState.fairway || data.fairway} />
-                            <label htmlFor="green">Green:</label>
-                            <input type="text" id="green" name="green" onChange={handleInputChange} value={inputState.green || data.green} />
-                            <label htmlFor="approach">Approach:</label>
-                            <input type="text" id="approach" name="approach" onChange={handleInputChange} value={inputState.approach || data.approach} />
-                            <label htmlFor="penalty">Penalty:</label>
-                            <input type="text" id="penalty" name="penalty" onChange={handleInputChange} value={inputState.penalty || data.penalty} />
-                            <label htmlFor="putts">Putts:</label>
-                            <input type="text" id="putts" name="putts" onChange={handleInputChange} value={inputState.putts || data.putts} />
-
-
+                            <table className="table">
+                                <thead>
+                                    <tr>
+                                        <th>Hole</th>
+                                        <th>Par</th>
+                                        <th>Score</th>
+                                        <th>Fairway</th>
+                                        <th>Green</th>
+                                        <th>Approach</th>
+                                        <th>Penalty</th>
+                                        <th>Putts</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>{data.hole}</td>
+                                        <td>{data.par}</td>
+                                        <td>{data.score}</td>
+                                        <td>{data.fairway}</td>
+                                        <td>{data.green}</td>
+                                        <td>{data.approach}</td>
+                                        <td>{data.penalty}</td>
+                                        <td>{data.putts}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <Link to={`/edit/${data.id}`} state={{ state: data.roundId }}>Edit</Link>
                         </div>
                     )
                 })
             }
-            <button onClick={(e) => updateHole(e)}><MdEdit /></button>
         </>
     )
 }

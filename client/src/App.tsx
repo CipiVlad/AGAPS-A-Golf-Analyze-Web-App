@@ -8,6 +8,7 @@ import AddCourseInfo from './pages/app/AddCourseInfo'
 import HoleCardStart from './components/HoleCardStart'
 import Home from './pages/app/Home'
 import TotalSummary from './pages/app/TotalSummary'
+import EditHole from './pages/app/EditHole'
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/overview" element={<Overview />} />
         <Route path="/details/:id" element={<HoleDetail />} />
+        <Route path="/edit/:id" element={< EditHole />} />
         <Route path="/add-round" element={<AddCourseInfo />} />
         <Route path="/hole-card/:id" element={<HoleCardStart />} />
         <Route path="/stats" element={<TotalSummary />} />

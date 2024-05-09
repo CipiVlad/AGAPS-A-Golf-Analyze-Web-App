@@ -75,6 +75,21 @@ app.get('/agaps/:id', (req: Request, res: Response) => {
     })
 })
 
+//get single agap by id
+app.get('/single-agap/:id', (req: Request, res: Response) => {
+    const { id } = req.params;
+    const query = `SELECT * FROM agapsTable WHERE id = ?`;
+    db.query(query, [id], (err: any, data: any) => {
+        if (err) {
+            return res.json(err);
+        } else {
+            console.log(data);
+            return res.json(data);
+        }
+    })
+})
+
+
 
 //update agaps round by roundId
 app.put('/agaps/:id', (req: Request, res: Response) => {
