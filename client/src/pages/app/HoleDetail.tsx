@@ -1,79 +1,48 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
-import { Link, useLocation, useParams } from "react-router-dom"
+import { Link, Navigate, useLocation, useParams } from "react-router-dom"
 import './HoleDetail.css'
-import { MdEdit } from "react-icons/md";
 
 const HoleDetail = () => {
     // here you fetch the hole detail overview
     // by the courseId matching the roundId (courseInfo server)
     const { id } = useParams()
+    // const { state } = useLocation() //formattedTimes
     const [getDetails, setGetDetails] = useState<any>([])
-    const [getHoleId, setGetHoleId] = useState<number>()
 
+    //explanation see below
+    const state = useLocation().state || getDetails[0]?.roundId || ''
 
     // fetch data by id
     useEffect(() => {
         const fetchData = async () => {
-            // const response = await axios.get(`http://localhost:3000/agaps/${id}`)
-            const response = await axios.get(`https://agaps-a-golf-analyze-web-app.onrender.com/agaps/${id}`)
+            const response = await axios.get(`http://localhost:3000/agaps/${id}`)
+            // const response = await axios.get(`https://agaps-a-golf-analyze-web-app.onrender.com/agaps/${id}`)
             setGetDetails(response.data)
             // setGetHoleId(response.data[0].id)
         }
         fetchData()
-    }, [id])
+    }, [])
 
     // console.log(getHoleId);
 
-
-
-
-    const [inputState, setInputState] = useState<any>([])
-
-    const handleInputChange = (e: any) => {
-        const { name, value } = e.target;
-        setInputState((prev: any) => ({
-            ...prev,
-            [name]: value
-        }))
-    }
-
-    const updateHole = async (e: any) => {
-        e.preventDefault()
-
-        const newPostObj = {
-            id: getHoleId,
-            hole: getDetails.map((data: any) => data.hole),
-            par: getDetails.map((data: any) => data.par),
-            roundId: getDetails.map((data: any) => data.roundId),
-            score: inputState.score || getDetails.map((data: any) => data.score),
-            fairway: inputState.fairway || getDetails.map((data: any) => data.fairway),
-            green: inputState.green || getDetails.map((data: any) => data.green),
-            approach: inputState.approach || getDetails.map((data: any) => data.approach),
-            penalty: inputState.penalty || getDetails.map((data: any) => data.penalty),
-            putts: inputState.putts || getDetails.map((data: any) => data.putts)
-        }
-
-        // console.log(newPostObj)
-
-        try {
-            // const response = await axios.put(`http://localhost:3000/agaps/${getHoleId}`, newPostObj)
-            const response = await axios.put(`https://agaps-a-golf-analyze-web-app.onrender.com/agaps/${getHoleId}`, newPostObj)
-            console.log(response.data);
-            setGetDetails((prev: any) => [...prev, response.data])
-
-        } catch (error) {
-            console.log(error)
-        }
-
-    }
-
-    console.log(getDetails);
-
-
     return (
         <>
-            <h2>Overview - Hole Details</h2>
+            {
+                getDetails.length < 18
+                    ?
+                    <>
+                        <p>Didn't finish your round?</p>
+                        <Link to={`/hole-card/${getDetails.length + 1}`} state={state}>Continue with Hole {getDetails.length + 1}</Link>
+                    </>
+                    : null
+            }
+
+
+            <div>
+                <h2>Hole Detail</h2>
+                {/* <p>{state.slice(0, 10)}</p> */}
+            </div>
             {
                 getDetails.map((data: any, index: number) => {
                     return (
@@ -109,7 +78,19 @@ const HoleDetail = () => {
                     )
                 })
             }
+
         </>
     )
 }
 export default HoleDetail
+
+
+// explanation
+/**
+ * This code snippet is using the logical OR (||) operator to assign a value to the state variable in TypeScript.
+
+It first checks if useLocation().state is truthy (i.e., not null, undefined, 0, '', false, or NaN). If it is, then state is assigned the value of useLocation().state.
+If useLocation().state is falsy, it moves on to check if getDetails[0]?.roundId is truthy. The ?. is the optional chaining operator, which prevents an error if getDetails[0] is null or undefined. If getDetails[0]?.roundId is truthy, then state is assigned the value of getDetails[0]?.roundId.
+If both useLocation().state and getDetails[0]?.roundId are falsy, then state is assigned an empty string ''.
+This code snippet is a concise way of setting the state variable based on the existence and truthiness of certain values.
+ */

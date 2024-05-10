@@ -9,20 +9,21 @@ export const Overview = () => {
     const [getDataById, setGetDataById] = useState([])
     const [showData, setShowData] = useState(false)
 
+
     // delete by id
-    const deleteById = async (id: number) => {
-        // const response = await axios.delete(`http://localhost:3000/course-info/${id}`)
-        const response = await axios.delete(`https://agaps-a-golf-analyze-web-app.onrender.com/course-info/${id}`)
+    const deleteById = async (id: string) => {
+        const response = await axios.delete(`http://localhost:3000/course-info/${id}`)
+        // const response = await axios.delete(`https://agaps-a-golf-analyze-web-app.onrender.com/course-info/${id}`)
+        console.log(getDataById);
         setGetDataById(response.data)
-        console.log(response.data);
     }
 
     useEffect(() => {
         const fetchData = async () => {
-            // const response = await axios.get('http://localhost:3000/course-info')
-            const response = await axios.get('https://agaps-a-golf-analyze-web-app.onrender.com/course-info')
+            const response = await axios.get('http://localhost:3000/course-info')
+            // const response = await axios.get('https://agaps-a-golf-analyze-web-app.onrender.com/course-info')
             setGetData(response.data)
-            console.log(getData);
+            // console.log(getData);
         }
         fetchData()
     }, [getDataById])

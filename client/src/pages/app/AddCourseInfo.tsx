@@ -49,8 +49,8 @@ const AddCourseInfo = () => {
         }
 
         try {
-            // const response = await axios.post("http://localhost:3000/course-info", newPostObj)
-            const response = await axios.post("https://agaps-a-golf-analyze-web-app.onrender.com/course-info", newPostObj)
+            const response = await axios.post("http://localhost:3000/course-info", newPostObj)
+            // const response = await axios.post("https://agaps-a-golf-analyze-web-app.onrender.com/course-info", newPostObj)
             console.log(response.data.insertedId)
             setNewPostObj(response.data.insertedId)
             navigate("/hole-card/1", { state: newPostObj.roundId })

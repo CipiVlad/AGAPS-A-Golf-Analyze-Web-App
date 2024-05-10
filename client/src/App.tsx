@@ -9,6 +9,7 @@ import HoleCardStart from './components/HoleCardStart'
 import Home from './pages/app/Home'
 import TotalSummary from './pages/app/TotalSummary'
 import EditHole from './pages/app/EditHole'
+import ContinueHole from './pages/app/ContinueHole'
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="/details/:id" element={<HoleDetail />} />
         <Route path="/hole-card/:id" element={<HoleCardStart />} />
         <Route path="/edit/:id" element={< EditHole />} />
+        <Route path="/continue/:id" element={<ContinueHole />} />
         <Route path="/stats" element={<TotalSummary />} />
       </Routes>
       <Navbar />

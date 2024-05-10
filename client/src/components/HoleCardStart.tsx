@@ -9,6 +9,8 @@ const HoleCard = () => {
     const { pathname } = useLocation()
     const [show, setShow] = useState(false)
     const { state } = useLocation()
+    console.log("From HoleCardStart:", state);
+
 
     return (
         <>

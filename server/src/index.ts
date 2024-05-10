@@ -109,11 +109,11 @@ app.put('/agaps/:id', (req: Request, res: Response) => {
 
 // delete courseInfo and agapsTable by roundId
 app.delete('/course-info/:id', (req: Request, res: Response) => {
-    const { id } = req.params;
-
     //delete data from courseInfo and agapsTable by roundId
-    const deleteQuery = `DELETE courseInfo, agapsTable FROM courseInfo JOIN agapsTable ON courseInfo.roundId = agapsTable.roundId WHERE courseInfo.roundId = ?`;
-    db.query(deleteQuery, [id], (err: any, data: any) => {
+
+    const { id } = req.params;
+    const query = `DELETE courseInfo, agapsTable FROM courseInfo JOIN agapsTable ON courseInfo.roundId = agapsTable.roundId WHERE courseInfo.roundId = ?`;
+    db.query(query, [id], (err: any, data: any) => {
         if (err) {
             return res.json(err);
         } else {
@@ -121,7 +121,6 @@ app.delete('/course-info/:id', (req: Request, res: Response) => {
             return res.json(data);
         }
     })
-
 })
 
 
