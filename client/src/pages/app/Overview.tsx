@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 import { MdDeleteForever } from "react-icons/md";
+import { MdQueryStats } from "react-icons/md";
+
 import './Overview.css'
 
 export const Overview = () => {
@@ -55,8 +57,10 @@ export const Overview = () => {
                                     <p>Round: {data.round}</p>
                                     <p>Date: {data.formattedTimes.slice(0, 10)}</p>
                                 </div>
-                                <div className='edit_delete'>
+                                <div className='icons'>
                                     <button onClick={() => confirm('Are you sure you want to delete?') && deleteById(data.roundId)}><MdDeleteForever /></button>
+
+                                    <button><MdQueryStats /></button>
                                 </div>
                                 <hr />
                             </div>
@@ -74,8 +78,9 @@ export const Overview = () => {
                                     <p>Round: {data.round}</p>
                                     <p>Date: {data.formattedTimes.slice(0, 10)}</p>
                                 </div>
-                                <div className='edit_delete'>
+                                <div className='icons'>
                                     <button onClick={() => confirm('Are you sure you want to delete?') && deleteById(data.roundId)}><MdDeleteForever /></button>
+                                    <button><MdQueryStats /></button>
                                 </div>
                                 <hr />
                             </div>
